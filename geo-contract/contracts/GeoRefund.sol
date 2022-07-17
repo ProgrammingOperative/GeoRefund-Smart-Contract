@@ -38,4 +38,15 @@ contract refunderContract{
         return false;
     }
 
+    function add_employee(address id, int256 lat, int256 lon, int256 rad, uint8 fund) public {
+        require(!check_existance(id));
+        contractInfo[id].center_lat = lat;
+        contractInfo[id].center_lon = lon;
+        contractInfo[id].budget = fund;
+        contractInfo[id].radius = rad;
+        contractInfo[id].status = false;
+        employees.push(id);
+
+    }
+
 }
