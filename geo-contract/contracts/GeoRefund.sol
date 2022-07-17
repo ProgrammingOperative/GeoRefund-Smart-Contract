@@ -64,8 +64,17 @@ contract refunderContract{
         }else{
             contractInfo[msg.sender].status = false;
         }
+    
+    function pay(address payable _to) public payable {
+        require(check_existance(_to));
+        require(contractInfo[_to].status == true);
+        bool sent = _to.send(contractInfo[_to].budget);
+        require(sent, "Failed to send Ether");
+        contractInfo[_to].status=false;
     }
 
-    
+    }
+
+
 
 }
