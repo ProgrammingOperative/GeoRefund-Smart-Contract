@@ -49,4 +49,23 @@ contract refunderContract{
 
     }
 
+    function calculate_radius(int256 lat, int256 lon, address adr) private view returns(int256) {
+        int256 radius = 0;
+        int256 x = lat - contractInfo[adr].center_lat;
+        int256 y = lon - contractInfo[adr].center_lon;
+        radius = sqrt(x**2 + y**2);
+        return radius;
+    }
+
+    function check_position(int256 lat, int256 lon) public {
+        int256 new_radius = calculate_radius(lat, lon, msg.sender);
+        if(new_radius < contractInfo[msg.sender].radius){
+            contractInfo[msg.sender].status = true;
+        }else{
+            contractInfo[msg.sender].status = false;
+        }
+    }
+
+    
+
 }
